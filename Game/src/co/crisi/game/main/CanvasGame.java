@@ -1,12 +1,18 @@
 package co.crisi.game.main;
 
 import java.awt.BorderLayout;
+
 import java.awt.Canvas;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
 import co.crisi.game.control.KeyBoard;
+import co.crisi.game.graphics.Screen;
 
 public class CanvasGame extends Canvas implements Runnable {
 	/**
@@ -21,12 +27,26 @@ public class CanvasGame extends Canvas implements Runnable {
 	private static volatile boolean isActive = false;
 	private static Thread gameThread;
 	private static KeyBoard keyBoard;
+	private static Screen screen;
 
 	private static int aps = 0;// Actualizaciones por segundo
 	private static int fps = 0;// Frames por segundo
+	private static int x = 0;
+	private static int y = 0;
+
+	private static BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+	/**
+	 * Unica manera en la que se puede manipular los ints de los pixeles de la
+	 * imagen getRaster() devuelve la secuencia de pixeles de la imagen
+	 */
+	private static int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();// Devuelve un array de
+																								// int de los pixels de
+																								// la imagen
 
 	public CanvasGame() {
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
+
+		screen = new Screen(WIDTH, HEIGHT);
 
 		keyBoard = new KeyBoard();
 		addKeyListener(keyBoard);
@@ -66,16 +86,17 @@ public class CanvasGame extends Canvas implements Runnable {
 
 		if (keyBoard.up) {
 			// Codigo para mover personaje hacia arriba
-			System.out.println("Arriba pulsado: W");
+			y++;// El mapa se deberia mover para abajo para dar ilusion de que el personaje es
+				// quien se mueve
 		}
 		if (keyBoard.down) {
-			System.out.println("Abajo pulsado: S");
+			y--;
 		}
 		if (keyBoard.left) {
-			System.out.println("Izquierda pulsado: A");
+			x++;
 		}
 		if (keyBoard.right) {
-			System.out.println("Derecha pulsado: D");
+			x--;
 		}
 
 		aps++;
@@ -86,6 +107,28 @@ public class CanvasGame extends Canvas implements Runnable {
 	 * Metodos necesarios para redibujar gráficos
 	 */
 	private void showGraphics() {
+		BufferStrategy strategy = getBufferStrategy();// Crear un buffer
+		if (strategy == null) {
+			createBufferStrategy(3);// Se utiliza un triple buffer, dibuja 3 imagenes en buffer y al llegar al
+									// buffer 3 la dibuja en la pantalla
+			return;
+		}
+		screen.clean();
+		// Temporal
+		screen.showScreen(x, y);
+
+//		for (int i = 0; i < pixels.length; i++) {
+//			pixels[i] = screen.pixels[i];
+//		}
+
+		System.arraycopy(screen.pixels, 0, pixels, 0, pixels.length);
+
+		Graphics g = strategy.getDrawGraphics();// Se encarga de dibujar las cosas dentro del buffer
+		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+		g.dispose();// hace que que g se borre para liberar memoria
+
+		strategy.show();
+
 		fps++;
 	}
 

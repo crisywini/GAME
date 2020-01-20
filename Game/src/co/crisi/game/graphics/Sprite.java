@@ -8,6 +8,11 @@ public final class Sprite {
 
 	public int[] pixels;
 	private final SpriteSheed sheed;
+	//Coleccion de sprites
+	public static Sprite asphalt = new Sprite(32, 0, 0, SpriteSheed.desert);
+	
+	
+	//Fin de coleccion
 
 	public Sprite(final int size, final int column, final int row, final SpriteSheed sheed) {
 		this.size = size;
@@ -21,7 +26,7 @@ public final class Sprite {
 		// Recorre de izquierda a derecha la hoja de sprites
 		for (int y = 0; y < size; y++) {
 			for (int x = 0; x < size; x++) {
-				pixels[(x + y) * size] = sheed.pixels[(x + this.x) + (y + this.y) * sheed.getWidth()];
+				pixels[x + y * size] = sheed.pixels[(x + this.x) + (y + this.y) * sheed.getWidth()];
 			}
 		}
 

@@ -11,6 +11,12 @@ public class SpriteSheed {
 	private final int height;
 	public final int[] pixels;
 
+	// Coleccion de hojas de sprites
+	public static SpriteSheed desert = new SpriteSheed("/textures/Desert.png", 320, 320);
+	
+
+	// Fin de coleccion
+
 	public SpriteSheed(final String path, final int width, final int height) {
 		this.height = height;
 		this.width = width;

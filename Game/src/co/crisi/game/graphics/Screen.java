@@ -56,24 +56,31 @@ public final class Screen {
 			}
 		}
 	}
+
 	// FIN TEMPORAL
 	/**
 	 * 
-	 * @param x2 compensacion x
-	 * @param y2 compensacion y
+	 * @param x2   compensacion x
+	 * @param y2   compensacion y
 	 * @param tile cuadro
 	 */
 	public void showTile(int x2, int y2, Tile tile) {
 		for (int y = 0; y < tile.sprite.getSize(); y++) {
-			int posY = y+y2;
+			int posY = y + y2;
 			for (int x = 0; x < pixels.length; x++) {
-				int posX = x+x2;
-				if(posX<0||posX>width||posY<0||posY>height)
+				int posX = x + x2;
+				if (posX < 0 || posX > width || posY < 0 || posY > height)
 					break;
-				pixels[posX+posY*width] = tile.sprite.pixels[x+y*tile.sprite.getSize()];
+				pixels[posX + posY * width] = tile.sprite.pixels[x + y * tile.sprite.getSize()];
 			}
 		}
 	}
-	
-	
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
 }

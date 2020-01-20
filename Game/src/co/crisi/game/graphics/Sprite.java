@@ -7,10 +7,10 @@ public final class Sprite {
 	private int y;// eje vertical
 
 	public int[] pixels;
-	private final SpriteSheed sheed;
+	private SpriteSheed sheed;
 	// Coleccion de sprites
 	public static final Sprite ASPHALT = new Sprite(32, 0, 0, SpriteSheed.desert);
-
+	public static final Sprite EMPTY = new Sprite(32, 0);
 	// Fin de coleccion
 
 	public Sprite(final int size, final int column, final int row, final SpriteSheed sheed) {
@@ -29,6 +29,15 @@ public final class Sprite {
 			}
 		}
 
+	}
+
+	public Sprite(final int size, final int color) {
+		this.size = size;
+		pixels = new int[size * size];
+
+		for (int i = 0; i < pixels.length; i++) {
+			pixels[i] = color;
+		}
 	}
 
 	public int getSize() {

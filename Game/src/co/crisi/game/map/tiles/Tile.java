@@ -11,7 +11,8 @@ public abstract class Tile {
 
 	// Coleccion de Tiles
 	public static final Tile ASPHALT = new AsphaltTile(Sprite.ASPHALT);
-
+	public static final Tile EMPTY = new EmptyTile(Sprite.EMPTY);
+	
 	// fin de coleccion
 
 	public Tile(Sprite sprite) {

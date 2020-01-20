@@ -1,5 +1,7 @@
 package co.crisi.game.graphics;
 
+import co.crisi.game.map.tiles.Tile;
+
 public final class Screen {
 
 	private final int width;
@@ -29,6 +31,7 @@ public final class Screen {
 		}
 	}
 
+	// TEMPORAL
 	/**
 	 * Dibuja en la pantalla
 	 * 
@@ -48,10 +51,29 @@ public final class Screen {
 				}
 				// Redibujar la pantalla
 				// Temporal ahora
-				pixels[posX + posY * width] = Sprite.asphalt.pixels[(x & MASCARA_SPRITE)
+				pixels[posX + posY * width] = Sprite.ASPHALT.pixels[(x & MASCARA_SPRITE)
 						+ (y & MASCARA_SPRITE) * LADO_SPRITE];
 			}
 		}
 	}
-
+	// FIN TEMPORAL
+	/**
+	 * 
+	 * @param x2 compensacion x
+	 * @param y2 compensacion y
+	 * @param tile cuadro
+	 */
+	public void showTile(int x2, int y2, Tile tile) {
+		for (int y = 0; y < tile.sprite.getSize(); y++) {
+			int posY = y+y2;
+			for (int x = 0; x < pixels.length; x++) {
+				int posX = x+x2;
+				if(posX<0||posX>width||posY<0||posY>height)
+					break;
+				pixels[posX+posY*width] = tile.sprite.pixels[x+y*tile.sprite.getSize()];
+			}
+		}
+	}
+	
+	
 }

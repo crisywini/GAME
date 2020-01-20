@@ -8,11 +8,10 @@ public final class Sprite {
 
 	public int[] pixels;
 	private final SpriteSheed sheed;
-	//Coleccion de sprites
-	public static Sprite asphalt = new Sprite(32, 0, 0, SpriteSheed.desert);
-	
-	
-	//Fin de coleccion
+	// Coleccion de sprites
+	public static final Sprite ASPHALT = new Sprite(32, 0, 0, SpriteSheed.desert);
+
+	// Fin de coleccion
 
 	public Sprite(final int size, final int column, final int row, final SpriteSheed sheed) {
 		this.size = size;
@@ -30,6 +29,10 @@ public final class Sprite {
 			}
 		}
 
+	}
+
+	public int getSize() {
+		return size;
 	}
 
 }

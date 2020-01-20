@@ -9,6 +9,11 @@ public abstract class Tile {
 
 	public Sprite sprite;// Dibujo que tiene el tile(recuadro)
 
+	// Coleccion de Tiles
+	public static final Tile ASPHALT = new AsphaltTile(Sprite.ASPHALT);
+
+	// fin de coleccion
+
 	public Tile(Sprite sprite) {
 		this.sprite = sprite;
 

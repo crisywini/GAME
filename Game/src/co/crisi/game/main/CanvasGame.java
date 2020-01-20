@@ -3,12 +3,15 @@ package co.crisi.game.main;
 import java.awt.BorderLayout;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import co.crisi.game.control.KeyBoard;
@@ -35,6 +38,7 @@ public class CanvasGame extends Canvas implements Runnable {
 	private static int y = 0;
 
 	private static BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+	private static final ImageIcon ICONO = new ImageIcon(CanvasGame.class.getResource("/icono/MysteryIcono.png"));
 	/**
 	 * Unica manera en la que se puede manipular los ints de los pixeles de la
 	 * imagen getRaster() devuelve la secuencia de pixeles de la imagen
@@ -54,6 +58,7 @@ public class CanvasGame extends Canvas implements Runnable {
 		window = new JFrame(TITLE);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
+		window.setIconImage(ICONO.getImage());
 		window.setLayout(new BorderLayout());
 		window.add(this, BorderLayout.CENTER);
 		window.pack();// Todos los elementos se ajustan a al tamaño 800*600
@@ -125,6 +130,7 @@ public class CanvasGame extends Canvas implements Runnable {
 
 		Graphics g = strategy.getDrawGraphics();// Se encarga de dibujar las cosas dentro del buffer
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+		
 		g.dispose();// hace que que g se borre para liberar memoria
 
 		strategy.show();
